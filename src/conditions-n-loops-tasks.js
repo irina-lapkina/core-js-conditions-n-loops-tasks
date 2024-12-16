@@ -98,8 +98,17 @@ function canQueenCaptureKing(queen, king) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a <= 0 || b <= 0 || c <= 0) {
+    return false;
+  }
+  if (a + b <= c || b + c <= a || c + a <= b) {
+    return false;
+  }
+  if (a === b || b === c || a === c) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -116,8 +125,47 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  if (num === 1) {
+    return 'I';
+  }
+  if (num === 2) {
+    return 'II';
+  }
+  if (num === 3) {
+    return 'III';
+  }
+  if (num === 4) {
+    return 'IV';
+  }
+  if (num === 5) {
+    return 'V';
+  }
+  if (num === 6) {
+    return 'VI';
+  }
+  if (num === 7) {
+    return 'VII';
+  }
+  if (num === 8) {
+    return 'VIII';
+  }
+  if (num === 9) {
+    return 'IX';
+  }
+  if (num === 0) {
+    return '';
+  }
+  if (num >= 10 && num < 20) {
+    return `X${convertToRomanNumerals(num % 10)}`;
+  }
+  if (num >= 20 && num < 30) {
+    return `XX${convertToRomanNumerals(num % 10)}`;
+  }
+  if (num >= 30 && num < 40) {
+    return `XXX${convertToRomanNumerals(num % 10)}`;
+  }
+  return '';
 }
 
 /**
@@ -135,8 +183,47 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let result = '';
+  function getString(gulich) {
+    switch (gulich) {
+      case '0':
+        return 'zero';
+      case '1':
+        return 'one';
+      case '2':
+        return 'two';
+      case '3':
+        return 'three';
+      case '4':
+        return 'four';
+      case '5':
+        return 'five';
+      case '6':
+        return 'six';
+      case '7':
+        return 'seven';
+      case '8':
+        return 'eight';
+      case '9':
+        return 'nine';
+      case '.':
+        return 'point';
+      case ',':
+        return 'point';
+      case '-':
+        return 'minus';
+      default:
+        return 'goooooolia';
+    }
+  }
+  for (let i = 0; i < numberStr.length; i += 1) {
+    result += getString(numberStr[i]);
+    if (i < numberStr.length - 1) {
+      result += ' ';
+    }
+  }
+  return result;
 }
 
 /**
@@ -151,8 +238,12 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let reverse = '';
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    reverse += str[i];
+  }
+  return reverse === str;
 }
 
 /**
@@ -169,8 +260,13 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 /**
@@ -188,8 +284,30 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  function numberToString(numb) {
+    const recursiveConvert = (n) => {
+      if (n === 0) return '';
+
+      const digitMap = '0123456789';
+
+      const lastDigit = n % 10;
+      const remainingDigits = Math.floor(n / 10);
+
+      return recursiveConvert(remainingDigits) + digitMap[lastDigit];
+    };
+
+    return numb === 0 ? '0' : recursiveConvert(numb);
+  }
+
+  const str = numberToString(num);
+
+  for (let i = 0; i < str.length; i += 1) {
+    if (+str[i] === digit) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
